@@ -40,19 +40,60 @@ struct ContentView: View {
        private func handleDrop(providers: [NSItemProvider]) -> Bool {
            droppedFiles.removeAll()
 
-           for provider in providers {
-               if provider.canLoadObject(ofClass: URL.self) {
-                   _ = provider.loadObject(ofClass: URL.self) { object, _ in
-                       if let url = object {
-                           DispatchQueue.main.async {
-                               self.droppedFiles.append(url)
+               var loadedFiles: [URL] = []
+               let group = DispatchGroup()
+
+               for provider in providers {
+                   if provider.canLoadObject(ofClass: URL.self) {
+                       group.enter()
+                       _ = provider.loadObject(ofClass: URL.self) { object, _ in
+                           defer { group.leave() }
+                           if let url = object {
+                               loadedFiles.append(url)
                            }
                        }
                    }
                }
+
+           group.notify(queue: .main) {
+               self.droppedFiles = loadedFiles
+               
+               do {
+                   // 1. Создание архива
+                   let zipURL = try ArchiveManager.createArchive(from: loadedFiles)
+                   
+                   // 2. Удаление расширения
+                   let archiveURLWithoutExtension = zipURL.deletingPathExtension()
+                   try FileManager.default.moveItem(at: zipURL, to: archiveURLWithoutExtension)
+                   
+                   // 3. Шифрование файла (с паролем пока что статичным)
+                   let password = "TestPassword123" // Для теста, потом заменим вводом из UI
+                   let encryptedData = try CryptoManager.encryptFile(inputURL: archiveURLWithoutExtension, password: password)
+                   
+                   // 4. Сохранение с кастомным расширением (.encrypted)
+                   let savePanel = NSSavePanel()
+//                   savePanel.allowedFileTypes = ["encrypted"]
+                   savePanel.allowedContentTypes = [UTType(filenameExtension: "encrypted")!]
+                   savePanel.nameFieldStringValue = "Archive.encrypted"
+                   savePanel.begin { result in
+                       if result == .OK, let url = savePanel.url {
+                           do {
+                               try encryptedData.write(to: url)
+                               print("Файл успешно зашифрован и сохранён:", url.path)
+                           } catch {
+                               print("Ошибка сохранения:", error.localizedDescription)
+                           }
+                       }
+                       // Удаляем временный архив
+                       try? FileManager.default.removeItem(at: archiveURLWithoutExtension)
+                   }
+                   
+               } catch {
+                   print("Ошибка при шифровании:", error.localizedDescription)
+               }
            }
 
-           return true
+               return true
        }
 }
 

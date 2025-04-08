@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E99152D42DA50B8600BA7D7C /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = E99152D32DA50B8600BA7D7C /* ZIPFoundation */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E99152B52DA4FDB100BA7D7C /* CryptoZap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoZap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E99152D42DA50B8600BA7D7C /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = CryptoZap;
 			packageProductDependencies = (
+				E99152D32DA50B8600BA7D7C /* ZIPFoundation */,
 			);
 			productName = CryptoZap;
 			productReference = E99152B52DA4FDB100BA7D7C /* CryptoZap.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = E99152AC2DA4FDB100BA7D7C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E99152D22DA50B8600BA7D7C /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E99152B62DA4FDB100BA7D7C /* Products */;
 			projectDirPath = "";
@@ -321,6 +330,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E99152D22DA50B8600BA7D7C /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.19;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E99152D32DA50B8600BA7D7C /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E99152D22DA50B8600BA7D7C /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E99152AD2DA4FDB100BA7D7C /* Project object */;
 }
