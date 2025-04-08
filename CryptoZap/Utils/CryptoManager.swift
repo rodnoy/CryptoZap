@@ -1,3 +1,11 @@
+//
+//  CryptoManager.swift
+//  CryptoZap
+//
+//  Created by KIRILL SIMAGIN on 08/04/2025.
+//
+
+
 import CryptoKit
 import Foundation
 
@@ -19,6 +27,6 @@ struct CryptoManager {
         
         let sealedBox = try AES.GCM.seal(fileData, using: key)
         
-        return salt + sealedBox.nonce.data + sealedBox.ciphertext + sealedBox.tag
+        return salt + Data(sealedBox.nonce) + sealedBox.ciphertext + sealedBox.tag
     }
 }

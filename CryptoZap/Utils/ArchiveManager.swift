@@ -1,3 +1,11 @@
+//
+//  ArchiveManager.swift
+//  CryptoZap
+//
+//  Created by KIRILL SIMAGIN on 08/04/2025.
+//
+
+
 import Foundation
 import ZIPFoundation
 
@@ -6,10 +14,8 @@ struct ArchiveManager {
         let tempDirectory = FileManager.default.temporaryDirectory
         let zipURL = tempDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("zip")
         
-        guard let archive = Archive(url: zipURL, accessMode: .create) else {
-            throw NSError(domain: "ArchiveError", code: 0, userInfo: nil)
-        }
-        
+
+        let archive = try Archive(url: zipURL, accessMode: .create)
         for fileURL in files {
             try archive.addEntry(with: fileURL.lastPathComponent, fileURL: fileURL)
         }
