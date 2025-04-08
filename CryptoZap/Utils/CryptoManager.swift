@@ -29,4 +29,22 @@ struct CryptoManager {
         
         return salt + Data(sealedBox.nonce) + sealedBox.ciphertext + sealedBox.tag
     }
+    
+    static func decryptFile(encryptedData: Data, password: String) throws -> Data {
+        let salt = encryptedData.prefix(32)
+        let nonceData = encryptedData[32..<44]
+        let tagRange = (encryptedData.count - 16)..<encryptedData.count
+        let ciphertextRange = 44..<(encryptedData.count - 16)
+
+        let ciphertext = encryptedData[ciphertextRange]
+        let tag = encryptedData[tagRange]
+
+        let key = deriveKey(password: password, salt: salt)
+
+        let sealedBox = try AES.GCM.SealedBox(nonce: AES.GCM.Nonce(data: nonceData),
+                                              ciphertext: ciphertext,
+                                              tag: tag)
+
+        return try AES.GCM.open(sealedBox, using: key)
+    }
 }

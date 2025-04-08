@@ -22,4 +22,18 @@ struct ArchiveManager {
         
         return zipURL
     }
+    static func unzip(data: Data, to destination: URL) throws {
+        let tempZipURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".zip")
+        try data.write(to: tempZipURL)
+
+        // Используем throwing-инициализатор вместо устаревшего guard-let
+        let archive = try Archive(url: tempZipURL, accessMode: .read)
+
+        // Добавляем пропущенный аргумент (skipCRC32: true)
+        for entry in archive {
+            _ = try archive.extract(entry, to: destination, skipCRC32: true)
+        }
+
+        try FileManager.default.removeItem(at: tempZipURL)
+    }
 }
