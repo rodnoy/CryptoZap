@@ -14,9 +14,22 @@
 		E99152B52DA4FDB100BA7D7C /* CryptoZap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoZap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E99152DD2DA5296C00BA7D7C /* Exceptions for "CryptoZap" folder in "CryptoZap" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E99152B42DA4FDB100BA7D7C /* CryptoZap */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E99152B72DA4FDB100BA7D7C /* CryptoZap */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E99152DD2DA5296C00BA7D7C /* Exceptions for "CryptoZap" folder in "CryptoZap" target */,
+			);
 			path = CryptoZap;
 			sourceTree = "<group>";
 		};
@@ -267,6 +280,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CryptoZap/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -294,6 +308,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CryptoZap/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

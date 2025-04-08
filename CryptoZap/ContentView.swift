@@ -15,17 +15,18 @@ struct ContentView: View {
     @State private var filesToEncrypt: [URL] = []
     @State private var encryptedFileToDecrypt: URL?
     @State private var showDecryptPrompt = false
+    @Binding var openedFileURL: URL?
     var body: some View {
         VStack(spacing: 20) {
-            Button("Расшифровать файл") {
-                let openPanel = NSOpenPanel()
-                openPanel.allowedContentTypes = [UTType(filenameExtension: "encrypted")!]
-                openPanel.begin { result in
-                    if result == .OK, let url = openPanel.url {
-                        showDecryptPrompt(for: url)
-                    }
-                }
-            }
+//            Button("Расшифровать файл") {
+//                let openPanel = NSOpenPanel()
+//                openPanel.allowedContentTypes = [UTType(filenameExtension: "encrypted")!]
+//                openPanel.begin { result in
+//                    if result == .OK, let url = openPanel.url {
+//                        showDecryptPrompt(for: url)
+//                    }
+//                }
+//            }
             Image(systemName: "lock.doc")
                 .font(.system(size: 72))
                 .foregroundColor(isDragging ? .blue : .secondary)
@@ -58,6 +59,11 @@ struct ContentView: View {
                 decryptAndUnzip(file: encryptedFileToDecrypt!, password: password)
             }
         }
+        .onAppear {
+            if let url = openedFileURL, url.pathExtension == "encrypted" {
+                showDecryptPrompt(for: url)
+            }
+        }
     }
     
     private func handleDrop(providers: [NSItemProvider]) -> Bool {
@@ -79,9 +85,20 @@ struct ContentView: View {
         }
         
         group.notify(queue: .main) {
-            self.droppedFiles = loadedFiles
-            self.filesToEncrypt = loadedFiles
-            self.showPasswordPrompt = true
+//            self.droppedFiles = loadedFiles
+//            self.filesToEncrypt = loadedFiles
+//            self.showPasswordPrompt = true
+            guard let firstFile = loadedFiles.first else { return }
+            
+            if firstFile.pathExtension == "encrypted" {
+                // Расшифровка
+                self.showDecryptPrompt(for: firstFile)
+            } else {
+                // Шифрование
+                self.droppedFiles = loadedFiles
+                self.filesToEncrypt = loadedFiles
+                self.showPasswordPrompt = true
+            }
         }
         
         return true
@@ -120,21 +137,9 @@ struct ContentView: View {
     private func decryptAndUnzip(file: URL, password: String) {
         do {
             let encryptedData = try Data(contentsOf: file)
-            print("🧪 Encrypted file size: \(encryptedData.count)")
-            print("🔐 Trying to decrypt with password: \(password)")
             
-            let decryptedData: Data
-            do {
-                decryptedData = try CryptoManager.decryptFile(encryptedData: encryptedData, password: password)
-            } catch let error as CryptoKitError {
-                switch error {
-                case .authenticationFailure:
-                    print("❌ Ошибка: Неверный пароль или повреждённые данные (authentication failure).")
-                default:
-                    print("❌ CryptoKit ошибка:", error)
-                }
-                return
-            }
+            let decryptedData = try CryptoManager.decryptFile(encryptedData: encryptedData, password: password)
+
             
             let openPanel = NSOpenPanel()
             openPanel.canChooseDirectories = true
@@ -143,17 +148,9 @@ struct ContentView: View {
             openPanel.begin { result in
                 if result == .OK, let chosenFolder = openPanel.url {
                     do {
-                        let fileNameWithoutExtension = file.deletingPathExtension().lastPathComponent
-                        let targetFolder = chosenFolder.appendingPathComponent("Decrypted-\(fileNameWithoutExtension)")
-                        var finalTargetFolder = targetFolder
-                        var counter = 1
-                        while FileManager.default.fileExists(atPath: finalTargetFolder.path) {
-                            finalTargetFolder = chosenFolder.appendingPathComponent("Decrypted-\(fileNameWithoutExtension)-\(counter)")
-                            counter += 1
-                        }
-                        try FileManager.default.createDirectory(at: finalTargetFolder, withIntermediateDirectories: true)
-                        try ArchiveManager.unzip(data: decryptedData, to: finalTargetFolder)
-                        print("✅ Распаковано в:", finalTargetFolder.path)
+                        let destination = file.deletingLastPathComponent()
+                        try ArchiveManager.unzip(data: decryptedData, to: destination)
+                        print("Файлы распакованы:", destination.path)
                     } catch {
                         print("❌ Ошибка при распаковке:", error.localizedDescription)
                     }
@@ -168,5 +165,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(openedFileURL: .constant(nil))
 }
