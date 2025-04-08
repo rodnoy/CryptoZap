@@ -33,7 +33,3 @@
 
 ## License
 MIT License — feel free to use and modify, just give credit where it’s due :)
-
----
-
-Let me know if you’d like to add anything, like screenshots or contributor guidelines!
