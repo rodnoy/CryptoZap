@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
+import CryptoKit
 struct ContentView: View {
     @State private var isDragging = false
     @State private var droppedFiles: [URL] = []
@@ -119,14 +120,49 @@ struct ContentView: View {
     private func decryptAndUnzip(file: URL, password: String) {
         do {
             let encryptedData = try Data(contentsOf: file)
-            let decryptedData = try CryptoManager.decryptFile(encryptedData: encryptedData, password: password)
-
-            let destination = file.deletingLastPathComponent()
-            try ArchiveManager.unzip(data: decryptedData, to: destination)
-
-            print("Файл успешно расшифрован и распакован в:", destination.path)
+            print("🧪 Encrypted file size: \(encryptedData.count)")
+            print("🔐 Trying to decrypt with password: \(password)")
+            
+            let decryptedData: Data
+            do {
+                decryptedData = try CryptoManager.decryptFile(encryptedData: encryptedData, password: password)
+            } catch let error as CryptoKitError {
+                switch error {
+                case .authenticationFailure:
+                    print("❌ Ошибка: Неверный пароль или повреждённые данные (authentication failure).")
+                default:
+                    print("❌ CryptoKit ошибка:", error)
+                }
+                return
+            }
+            
+            let openPanel = NSOpenPanel()
+            openPanel.canChooseDirectories = true
+            openPanel.canChooseFiles = false
+            openPanel.prompt = "Выбрать папку для распаковки"
+            openPanel.begin { result in
+                if result == .OK, let chosenFolder = openPanel.url {
+                    do {
+                        let fileNameWithoutExtension = file.deletingPathExtension().lastPathComponent
+                        let targetFolder = chosenFolder.appendingPathComponent("Decrypted-\(fileNameWithoutExtension)")
+                        var finalTargetFolder = targetFolder
+                        var counter = 1
+                        while FileManager.default.fileExists(atPath: finalTargetFolder.path) {
+                            finalTargetFolder = chosenFolder.appendingPathComponent("Decrypted-\(fileNameWithoutExtension)-\(counter)")
+                            counter += 1
+                        }
+                        try FileManager.default.createDirectory(at: finalTargetFolder, withIntermediateDirectories: true)
+                        try ArchiveManager.unzip(data: decryptedData, to: finalTargetFolder)
+                        print("✅ Распаковано в:", finalTargetFolder.path)
+                    } catch {
+                        print("❌ Ошибка при распаковке:", error.localizedDescription)
+                    }
+                } else {
+                    print("🚫 Пользователь отменил выбор папки")
+                }
+            }
         } catch {
-            print("Ошибка при расшифровке:", error.localizedDescription)
+            print("❌ Ошибка при расшифровке:", error.localizedDescription)
         }
     }
 }

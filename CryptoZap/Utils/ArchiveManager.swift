@@ -31,7 +31,10 @@ struct ArchiveManager {
 
         // Добавляем пропущенный аргумент (skipCRC32: true)
         for entry in archive {
-            _ = try archive.extract(entry, to: destination, skipCRC32: true)
+            let outputURL = destination.appendingPathComponent(entry.path)
+            let outputDir = outputURL.deletingLastPathComponent()
+            try FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
+            _ = try archive.extract(entry, to: outputURL, skipCRC32: true)
         }
 
         try FileManager.default.removeItem(at: tempZipURL)
