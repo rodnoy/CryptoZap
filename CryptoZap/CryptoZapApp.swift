@@ -17,5 +17,13 @@ struct CryptoZapApp: App {
                     openedFileURL = url
                 }
         }
+        .commands {
+            CommandGroup(replacing: .appTermination) {
+                Button("Quit CryptoZap") {
+                    NSApplication.shared.terminate(nil)
+                }
+                .keyboardShortcut("q")
+            }
+        }
     }
 }

@@ -5,7 +5,6 @@
 //  Created by KIRILL SIMAGIN on 08/04/2025.
 //
 
-
 import SwiftUI
 
 struct PasswordPrompt: View {
@@ -24,10 +23,11 @@ struct PasswordPrompt: View {
                 Button("Отмена") {
                     presentationMode.wrappedValue.dismiss()
                 }
-                Button("OK") {
+                Button("OK", action: {
                     presentationMode.wrappedValue.dismiss()
                     onComplete(password)
-                }
+                })
+                .keyboardShortcut(.defaultAction)
                 .disabled(password.isEmpty)
             }
             .padding(.bottom)

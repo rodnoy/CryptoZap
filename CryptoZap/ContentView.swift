@@ -148,7 +148,7 @@ struct ContentView: View {
             openPanel.begin { result in
                 if result == .OK, let chosenFolder = openPanel.url {
                     do {
-                        let destination = file.deletingLastPathComponent()
+                        let destination = chosenFolder//file.deletingLastPathComponent()
                         try ArchiveManager.unzip(data: decryptedData, to: destination)
                         print("Файлы распакованы:", destination.path)
                     } catch {
