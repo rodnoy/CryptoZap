@@ -1,35 +1,25 @@
 # CryptoZap
 
-**CryptoZap** is a simple and fun macOS app that lets you encrypt and decrypt files using CryptoKit and SwiftUI. Secure your data with a password in one quick "zap"!
+CryptoZap is a minimalist macOS app for securely encrypting and decrypting files using Apple's CryptoKit and SwiftUI. Designed for simplicity and speed, with a modern drag-and-drop interface.
 
 ## Features
-- File selection through an easy-to-use interface.
-- Encryption and decryption powered by AES-GCM from CryptoKit.
-- Clean and minimal SwiftUI design.
-- Fast, secure, and full of personality!
+
+- Encrypt multiple files with a password
+- Automatically ZIP files before encryption
+- Drag-and-drop UI for easy file selection
+- Custom `.encrypted` file format
+- Decrypt with password and restore original files and folders
+- Built entirely with native SwiftUI and CryptoKit
 
 ## Requirements
-- macOS 12.0 or later.
-- Xcode 14.0 or later.
+
+- macOS 12.0+
+- Apple Silicon (M1, M2, etc.)
 
 ## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/username/CryptoZap.git
-   ```
-2. Open the project in Xcode: `CryptoZap.xcodeproj`.
-3. Build and run the app (Cmd + R).
 
-## Usage
-1. Launch CryptoZap.
-2. Click "Select File" and choose a file to process.
-3. Enter a password.
-4. Hit "Encrypt" or "Decrypt" — done!
-
-## Notes
-- Encrypted files are saved with a `.encrypted` extension.
-- Decrypted files get a `.decrypted` extension.
-- Remember your password — there’s no recovery without it!
+Download the latest `.zip` file from the [Releases](https://github.com/rodnoy/CryptoZap/releases) section.
 
 ## License
-MIT License — feel free to use and modify, just give credit where it’s due :)
+
+MIT or Custom — _add your license here_
