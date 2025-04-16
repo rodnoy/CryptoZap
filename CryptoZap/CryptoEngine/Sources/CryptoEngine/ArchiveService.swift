@@ -8,9 +8,9 @@
 import Foundation
 import ZIPFoundation
 
-struct ArchiveService
+public struct ArchiveService
  {
-    static func createArchive(from files: [URL]) throws -> URL {
+    public static func createArchive(from files: [URL]) throws -> URL {
         let tempDirectory = FileManager.default.temporaryDirectory
         let zipURL = tempDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("zip")
         
@@ -30,7 +30,7 @@ struct ArchiveService
         
         return zipURL
     }
-    static func unzip(data: Data, to destination: URL) throws {
+    public static func unzip(data: Data, to destination: URL) throws {
         let tempZipURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".zip")
         try data.write(to: tempZipURL)
 

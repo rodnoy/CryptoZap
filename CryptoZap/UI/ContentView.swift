@@ -8,6 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 import CryptoKit
+import CryptoEngine
 struct ContentView: View {
     @State private var isDragging = false
     @State private var droppedFiles: [URL] = []

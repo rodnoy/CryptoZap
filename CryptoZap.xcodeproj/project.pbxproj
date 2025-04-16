@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E99152D42DA50B8600BA7D7C /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = E99152D32DA50B8600BA7D7C /* ZIPFoundation */; };
+		E93D7B4D2DAFDA270084D0B7 /* CryptoEngine in Frameworks */ = {isa = PBXBuildFile; productRef = E93D7B4C2DAFDA270084D0B7 /* CryptoEngine */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,17 +40,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99152D42DA50B8600BA7D7C /* ZIPFoundation in Frameworks */,
+				E93D7B4D2DAFDA270084D0B7 /* CryptoEngine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E939B4C42DAFD78F00216B7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E99152AC2DA4FDB100BA7D7C = {
 			isa = PBXGroup;
 			children = (
 				E99152B72DA4FDB100BA7D7C /* CryptoZap */,
+				E939B4C42DAFD78F00216B7C /* Frameworks */,
 				E99152B62DA4FDB100BA7D7C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,7 +91,7 @@
 			);
 			name = CryptoZap;
 			packageProductDependencies = (
-				E99152D32DA50B8600BA7D7C /* ZIPFoundation */,
+				E93D7B4C2DAFDA270084D0B7 /* CryptoEngine */,
 			);
 			productName = CryptoZap;
 			productReference = E99152B52DA4FDB100BA7D7C /* CryptoZap.app */;
@@ -114,7 +122,6 @@
 			mainGroup = E99152AC2DA4FDB100BA7D7C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				E99152D22DA50B8600BA7D7C /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E99152B62DA4FDB100BA7D7C /* Products */;
@@ -346,22 +353,10 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		E99152D22DA50B8600BA7D7C /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.19;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		E99152D32DA50B8600BA7D7C /* ZIPFoundation */ = {
+		E93D7B4C2DAFDA270084D0B7 /* CryptoEngine */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E99152D22DA50B8600BA7D7C /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
-			productName = ZIPFoundation;
+			productName = CryptoEngine;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
