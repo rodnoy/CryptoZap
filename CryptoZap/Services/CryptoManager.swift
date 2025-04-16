@@ -9,7 +9,8 @@
 import CryptoKit
 import Foundation
 
-struct CryptoManager {
+struct CryptoService
+ {
     
     private static func deriveKey(password: String, salt: Data) -> SymmetricKey {
         let passwordData = Data(password.utf8)
