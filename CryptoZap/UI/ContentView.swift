@@ -106,11 +106,13 @@ struct ContentView: View {
     
     private func encryptAndSave(files: [URL], password: String) {
         do {
-            let zipURL = try ArchiveManager.createArchive(from: files)
+            let zipURL = try ArchiveService
+.createArchive(from: files)
             let archiveURLWithoutExtension = zipURL.deletingPathExtension()
             try FileManager.default.moveItem(at: zipURL, to: archiveURLWithoutExtension)
             
-            let encryptedData = try CryptoManager.encryptFile(inputURL: archiveURLWithoutExtension, password: password)
+            let encryptedData = try CryptoService
+.encryptFile(inputURL: archiveURLWithoutExtension, password: password)
             
             let savePanel = NSSavePanel()
             savePanel.allowedContentTypes = [UTType(filenameExtension: "encrypted")!]
@@ -138,7 +140,8 @@ struct ContentView: View {
         do {
             let encryptedData = try Data(contentsOf: file)
             
-            let decryptedData = try CryptoManager.decryptFile(encryptedData: encryptedData, password: password)
+            let decryptedData = try CryptoService
+.decryptFile(encryptedData: encryptedData, password: password)
 
             
             let openPanel = NSOpenPanel()
@@ -149,7 +152,8 @@ struct ContentView: View {
                 if result == .OK, let chosenFolder = openPanel.url {
                     do {
                         let destination = chosenFolder//file.deletingLastPathComponent()
-                        try ArchiveManager.unzip(data: decryptedData, to: destination)
+                        try ArchiveService
+.unzip(data: decryptedData, to: destination)
                         print("Файлы распакованы:", destination.path)
                     } catch {
                         print("❌ Ошибка при распаковке:", error.localizedDescription)
