@@ -32,7 +32,7 @@ struct ContentView: View {
                 .font(.system(size: 72))
                 .foregroundColor(isDragging ? .blue : .secondary)
             
-            Text("Перетащите файлы для шифрования")
+            Text(String(localized: "DragFilesToEncrypt"))
                 .font(.title2)
                 .foregroundColor(.secondary)
             

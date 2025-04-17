@@ -15,15 +15,15 @@ struct PasswordPrompt: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            SecureField("Введите пароль", text: $password)
+            SecureField(String(localized: "EnterPassword"), text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
             HStack {
-                Button("Отмена") {
+                Button(String(localized: "Cancel")) {
                     presentationMode.wrappedValue.dismiss()
                 }
-                Button("OK", action: {
+                Button(String(localized: "OK"), action: {
                     presentationMode.wrappedValue.dismiss()
                     onComplete(password)
                 })

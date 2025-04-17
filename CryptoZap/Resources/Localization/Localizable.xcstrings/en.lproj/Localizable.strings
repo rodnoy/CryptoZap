@@ -1,0 +1,9 @@
+"DragFilesToEncrypt" = "Drop files here to encrypt";
+"Cancel" = "Cancel";
+"DecryptFile" = "Decrypt file";
+"QuitApp" = "Quit CryptoZap";
+"OK" = "OK";
+"DecryptionError" = "Decryption failed";
+"EncryptionSuccess" = "File successfully encrypted";
+"UserCancelledFolderSelection" = "User cancelled folder selection";
+"EnterPassword" = "Enter password";

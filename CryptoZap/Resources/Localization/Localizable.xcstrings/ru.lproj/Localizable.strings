@@ -1,0 +1,9 @@
+"DragFilesToEncrypt" = "Перетащите файлы для шифрования";
+"Cancel" = "Отмена";
+"DecryptFile" = "Расшифровать файл";
+"QuitApp" = "Quit CryptoZap";
+"OK" = "ОК";
+"DecryptionError" = "Ошибка при расшифровке";
+"EncryptionSuccess" = "Файл успешно зашифрован";
+"UserCancelledFolderSelection" = "Пользователь отменил выбор папки";
+"EnterPassword" = "Введите пароль";

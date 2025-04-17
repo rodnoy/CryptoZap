@@ -1,0 +1,9 @@
+"DragFilesToEncrypt" = "Déposez les fichiers à chiffrer";
+"Cancel" = "Annuler";
+"DecryptFile" = "Déchiffrer le fichier";
+"QuitApp" = "Quitter CryptoZap";
+"OK" = "OK";
+"DecryptionError" = "Échec du déchiffrement";
+"EncryptionSuccess" = "Fichier chiffré avec succès";
+"UserCancelledFolderSelection" = "L'utilisateur a annulé la sélection du dossier";
+"EnterPassword" = "Entrez le mot de passe";
