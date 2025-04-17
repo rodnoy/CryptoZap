@@ -7,3 +7,12 @@
 "EncryptionSuccess" = "File successfully encrypted";
 "UserCancelledFolderSelection" = "User cancelled folder selection";
 "EnterPassword" = "Enter password";
+"WrongPassword" = "Wrong password";
+"ArchiveFailure" = "Archive failed";
+"DecryptionFailure" = "Decryption failed";
+"EncryptionFailure" = "Encryption failed";
+"PermissionDenied" = "Permission denied";
+"UserCancelledFolderSelection" = "User cancelled folder selection";
+"PrintEncryptionSuccess" = "The file has been successfully encrypted and saved:";
+"SelectFolderToUnpack" = "Select the folder to unpack";
+"PrintDecompressionSuccess" = "The files are unpacked:";

@@ -7,3 +7,13 @@
 "EncryptionSuccess" = "Fichier chiffré avec succès";
 "UserCancelledFolderSelection" = "L'utilisateur a annulé la sélection du dossier";
 "EnterPassword" = "Entrez le mot de passe";
+"WrongPassword" = "Mot de passe incorrect";
+"ArchiveFailure" = "Échec de l'archivage";
+"DecryptionFailure" = "Échec du déchiffrement";
+"EncryptionFailure" = "Échec du chiffrement";
+"PermissionDenied" = "Accès refusé";
+"UserCancelledFolderSelection" = "L'utilisateur a annulé la sélection du dossier";
+"PrintEncryptionSuccess" = "Le fichier a été crypté et enregistré avec succès :";
+"SelectFolderToUnpack" = "Sélectionner un dossier pour le décompactage";
+"PrintDecompressionSuccess" = "Les fichiers sont décompressés :";
+

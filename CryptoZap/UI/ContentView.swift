@@ -9,6 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 import CryptoKit
 import CryptoEngine
+
 struct ContentView: View {
     @State private var isDragging = false
     @State private var droppedFiles: [URL] = []
@@ -16,25 +17,19 @@ struct ContentView: View {
     @State private var filesToEncrypt: [URL] = []
     @State private var encryptedFileToDecrypt: URL?
     @State private var showDecryptPrompt = false
+    @State private var error: AppError?
     @Binding var openedFileURL: URL?
+    
     var body: some View {
         VStack(spacing: 20) {
-//            Button("Расшифровать файл") {
-//                let openPanel = NSOpenPanel()
-//                openPanel.allowedContentTypes = [UTType(filenameExtension: "encrypted")!]
-//                openPanel.begin { result in
-//                    if result == .OK, let url = openPanel.url {
-//                        showDecryptPrompt(for: url)
-//                    }
-//                }
-//            }
             Image(systemName: "lock.doc")
                 .font(.system(size: 72))
                 .foregroundColor(isDragging ? .blue : .secondary)
             
             Text(String(localized: "DragFilesToEncrypt"))
                 .font(.title2)
-                .foregroundColor(.secondary)
+                .foregroundColor(error != nil ? .red : .secondary)
+                .animation(.easeInOut(duration: 0.3), value: error)
             
             if !droppedFiles.isEmpty {
                 List(droppedFiles, id: \URL.self) { url in
@@ -65,6 +60,11 @@ struct ContentView: View {
                 showDecryptPrompt(for: url)
             }
         }
+        .alert("Error", isPresented: Binding(get: { error != nil }, set: { if !$0 { error = nil } })) {
+            Button(String(localized: "OK"), role: .cancel) { }
+        } message: {
+            Text(error?.localizedDescription ?? "")
+        }
     }
     
     private func handleDrop(providers: [NSItemProvider]) -> Bool {
@@ -86,9 +86,6 @@ struct ContentView: View {
         }
         
         group.notify(queue: .main) {
-//            self.droppedFiles = loadedFiles
-//            self.filesToEncrypt = loadedFiles
-//            self.showPasswordPrompt = true
             guard let firstFile = loadedFiles.first else { return }
             
             if firstFile.pathExtension == "encrypted" {
@@ -107,13 +104,11 @@ struct ContentView: View {
     
     private func encryptAndSave(files: [URL], password: String) {
         do {
-            let zipURL = try ArchiveService
-.createArchive(from: files)
+            let zipURL = try ArchiveService.createArchive(from: files)
             let archiveURLWithoutExtension = zipURL.deletingPathExtension()
             try FileManager.default.moveItem(at: zipURL, to: archiveURLWithoutExtension)
             
-            let encryptedData = try CryptoService
-.encryptFile(inputURL: archiveURLWithoutExtension, password: password)
+            let encryptedData = try CryptoService.encryptFile(inputURL: archiveURLWithoutExtension, password: password)
             
             let savePanel = NSSavePanel()
             savePanel.allowedContentTypes = [UTType(filenameExtension: "encrypted")!]
@@ -122,49 +117,47 @@ struct ContentView: View {
                 if result == .OK, let url = savePanel.url {
                     do {
                         try encryptedData.write(to: url)
-                        print("Файл успешно зашифрован и сохранён:", url.path)
+                        print(String(localized: "PrintEncryptionSuccess"), url.path)
                     } catch {
-                        print("Ошибка сохранения:", error.localizedDescription)
+                        self.error = .permissionDenied
                     }
                 }
                 try? FileManager.default.removeItem(at: archiveURLWithoutExtension)
             }
         } catch {
-            print("Ошибка при шифровании:", error.localizedDescription)
+            self.error = .encryptionFailure
         }
     }
+    
     func showDecryptPrompt(for url: URL) {
         encryptedFileToDecrypt = url
         showDecryptPrompt = true
     }
+    
     private func decryptAndUnzip(file: URL, password: String) {
         do {
             let encryptedData = try Data(contentsOf: file)
-            
-            let decryptedData = try CryptoService
-.decryptFile(encryptedData: encryptedData, password: password)
+            let decryptedData = try CryptoService.decryptFile(encryptedData: encryptedData, password: password)
 
-            
             let openPanel = NSOpenPanel()
             openPanel.canChooseDirectories = true
             openPanel.canChooseFiles = false
-            openPanel.prompt = "Выбрать папку для распаковки"
+            openPanel.prompt = String(localized: "SelectFolderToUnpack")
             openPanel.begin { result in
                 if result == .OK, let chosenFolder = openPanel.url {
                     do {
-                        let destination = chosenFolder//file.deletingLastPathComponent()
-                        try ArchiveService
-.unzip(data: decryptedData, to: destination)
-                        print("Файлы распакованы:", destination.path)
+                        let destination = chosenFolder
+                        try ArchiveService.unzip(data: decryptedData, to: destination)
+                        print(String(localized: "PrintDecompressionSuccess"), destination.path)
                     } catch {
-                        print("❌ Ошибка при распаковке:", error.localizedDescription)
+                        self.error = .archiveFailure
                     }
                 } else {
-                    print("🚫 Пользователь отменил выбор папки")
+                    self.error = .userCancelled
                 }
             }
         } catch {
-            print("❌ Ошибка при расшифровке:", error.localizedDescription)
+            self.error = .decryptionFailure
         }
     }
 }
