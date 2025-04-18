@@ -13,7 +13,7 @@ let package = Package(
             targets: ["CryptoEngine"]),
     ],
     dependencies: [
-  //        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
+          .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
           .package(url: "https://github.com/weichsel/ZIPFoundation", from: "0.9.0"),
       ],
     targets: [
@@ -24,6 +24,13 @@ let package = Package(
             dependencies: [
                             "ZIPFoundation"
                         ]
+        ),
+        .executableTarget(
+            name: "cryptozap-cli",
+            dependencies: [
+                "CryptoEngine",
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ]
         ),
         .testTarget(
             name: "CryptoEngineTests",

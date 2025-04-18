@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var filesToEncrypt: [URL] = []
     @State private var encryptedFileToDecrypt: URL?
     @State private var showDecryptPrompt = false
-    @State private var error: AppError?
+    @State private var error: CryptoError?
     @Binding var openedFileURL: URL?
     
     var body: some View {
