@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "CryptoEngine",
+    defaultLocalization: "en",
     platforms: [.macOS(.v12)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -23,7 +24,10 @@ let package = Package(
             name: "CryptoEngine",
             dependencies: [
                             "ZIPFoundation"
-                        ]
+                        ],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .executableTarget(
             name: "cryptozap-cli",
@@ -35,6 +39,12 @@ let package = Package(
         .testTarget(
             name: "CryptoEngineTests",
             dependencies: ["CryptoEngine"]
+        ),
+        .testTarget(
+            name: "cryptozap-cliTests",
+            dependencies: [
+                "CryptoEngine"
+            ]
         ),
     ]
 )

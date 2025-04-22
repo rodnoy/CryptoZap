@@ -12,39 +12,97 @@ import Foundation
 struct CryptoZapCLI: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "Encrypt or decrypt files using CryptoZap",
-        subcommands: [Encrypt.self, Decrypt.self]
+        discussion: "", version: "1.0.0", subcommands: [Encrypt.self, Decrypt.self],
+        defaultSubcommand: nil,
+        helpNames: [.short, .long]
     )
 
     struct Encrypt: ParsableCommand {
-        @Argument(help: "Path to input file")
+        static let configuration = CommandConfiguration(
+            commandName: "encrypt",
+            abstract: "Encrypt a file"
+        )
+        
+        @Argument(help: .init(String.localized("CLIHelpInputPath")))
         var inputPath: String
 
-        @Argument(help: "Password")
-        var password: String
-
+        @Option(name: [.customLong("output"), .short], help: .init(String.localized("CLIHelpOutputPath")))
+        var outputPath: String?
+        
         func run() throws {
+            func readSecureInput(prompt: String) -> String {
+                print(prompt, terminator: ": ")
+                fflush(stdout)
+                let cstr = getpass("")
+                return cstr.map { String(cString: $0) } ?? ""
+            }
+            let password = readSecureInput(prompt: String(localized: "CLIPasswordPrompt"))
+            
             let inputURL = URL(fileURLWithPath: inputPath)
-            let data = try CryptoService.encryptFile(inputURL: inputURL, password: password)
-            let outputURL = inputURL.deletingPathExtension().appendingPathExtension("encrypted")
+            var archiveURL = inputURL
+            if FileManager.default.directoryExists(atPath: inputURL.path) {
+                let tempZip = try ArchiveService.createArchive(from: [inputURL])
+                archiveURL = tempZip
+            }
+            let data = try CryptoService.encryptFile(inputURL: archiveURL, password: password)
+            let outputURL: URL
+            if let outPath = outputPath {
+                var destURL = URL(fileURLWithPath: outPath)
+                if FileManager.default.directoryExists(atPath: outPath) {
+                    destURL = destURL
+                        .appendingPathComponent(inputURL.deletingPathExtension().lastPathComponent)
+                        .appendingPathExtension("encrypted")
+                }
+                outputURL = destURL
+            } else {
+                outputURL = inputURL.deletingPathExtension().appendingPathExtension("encrypted")
+            }
             try data.write(to: outputURL)
             print("✅ File encrypted to:", outputURL.path)
         }
     }
 
     struct Decrypt: ParsableCommand {
-        @Argument(help: "Path to .encrypted file")
+        static let configuration = CommandConfiguration(
+            commandName: "decrypt",
+            abstract: "Decrypt a file"
+        )
+        
+        @Argument(help: .init(String.localized("CLIHelpInputPath")))
         var inputPath: String
 
-        @Argument(help: "Password")
-        var password: String
+        // Removed: password from arguments
+
+        @Option(name: [.customLong("output"), .short], help: .init(String.localized("CLIHelpOutputPath")))
+        var outputPath: String?
 
         func run() throws {
+            func readSecureInput(prompt: String) -> String {
+                print(prompt, terminator: ": ")
+                fflush(stdout)
+                let cstr = getpass("")
+                return cstr.map { String(cString: $0) } ?? ""
+            }
+            let password = readSecureInput(prompt: String(localized: "CLIPasswordPrompt"))
             let inputURL = URL(fileURLWithPath: inputPath)
             let encryptedData = try Data(contentsOf: inputURL)
             let decrypted = try CryptoService.decryptFile(encryptedData: encryptedData, password: password)
-            let outputURL = inputURL.deletingPathExtension().appendingPathExtension("decrypted")
-            try decrypted.write(to: outputURL)
-            print("✅ File decrypted to:", outputURL.path)
+
+            // Save to temp .zip
+            let tempZipURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("zip")
+            try decrypted.write(to: tempZipURL)
+
+            let outputURL: URL
+            if let outPath = outputPath {
+                outputURL = URL(fileURLWithPath: outPath)
+            } else {
+                outputURL = inputURL.deletingPathExtension()
+            }
+
+            try ArchiveService.unzip(data: decrypted, to: outputURL)
+            try FileManager.default.removeItem(at: tempZipURL)
+
+            print(String(localized: "CLIDecryptionSuccess"), outputURL.path)
         }
     }
 }
