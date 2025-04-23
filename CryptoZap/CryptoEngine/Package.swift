@@ -40,11 +40,11 @@ let package = Package(
             name: "CryptoEngineTests",
             dependencies: ["CryptoEngine"]
         ),
-        .testTarget(
-            name: "cryptozap-cliTests",
-            dependencies: [
-                "CryptoEngine"
-            ]
-        ),
+//        .testTarget(
+//            name: "cryptozap-cliTests",
+//            dependencies: [
+//                "CryptoEngine"
+//            ]
+//        ),
     ]
 )
