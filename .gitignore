@@ -64,3 +64,5 @@ fastlane/test_output
 # Mac
 .DS_Store
 Package.resolved
+# CLI : homebrew build + man pages
+ManualProduct/

@@ -22,12 +22,10 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "CryptoEngine",
-            dependencies: [
-                            "ZIPFoundation"
-                        ],
-            resources: [
-                .process("Resources")
-            ]
+            dependencies: ["ZIPFoundation"],
+            exclude: ["Sources/cryptozap-cli"],
+            resources: [.process("Resources")],
+           //
         ),
         .executableTarget(
             name: "cryptozap-cli",
