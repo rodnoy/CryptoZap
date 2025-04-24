@@ -47,6 +47,54 @@ You can use short aliases for arguments:
 - `--output` → `-o`
 - `--help`   → `-h`
 
+### 🕹 Suggested Aliases
+
+To make typing easier, you can add the following aliases to your shell configuration:
+
+#### For zsh or bash:
+```bash
+alias cz="cryptozap-cli"
+alias czenc="cryptozap-cli encrypt"
+alias czdec="cryptozap-cli decrypt"
+```
+
+#### For fish:
+```fish
+alias cz "cryptozap-cli"
+alias czenc "cryptozap-cli encrypt"
+alias czdec "cryptozap-cli decrypt"
+```
+
+This allows commands like:
+```bash
+czenc ~/file.txt -o ~/Desktop
+czdec ~/file.encrypted
+```
+
+### 🔁 Autocompletion
+
+Cryptozap CLI supports autocompletion for:
+
+- `zsh`
+- `bash`
+- `fish`
+
+When installed via `install.sh`, completions are automatically added to your shell profile.
+
+If installed via Homebrew, run this manually:
+
+```bash
+cryptozap-cli --generate-completion-script zsh > /usr/local/share/zsh/site-functions/_cryptozap-cli
+```
+
+Restart your terminal and type:
+
+```bash
+cryptozap-cli <TAB>
+```
+
+To see available subcommands and flags.
+
 ### 💡 Developer Tools
 
 For developers, CryptoZap includes an install script `install.sh` and a release helper `release.sh`. These scripts allow local installation and packaging of the CLI with man pages and autocompletion support for bash, zsh, and fish.
