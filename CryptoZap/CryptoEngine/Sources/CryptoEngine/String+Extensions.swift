@@ -7,6 +7,6 @@
 import Foundation
 public extension String {
     static func localized(_ key: String) -> String {
-        NSLocalizedString(key, bundle: .module, comment: "")
+        return NSLocalizedString(key, bundle: ResourceBundle.bundle, comment: "")
     }
 }

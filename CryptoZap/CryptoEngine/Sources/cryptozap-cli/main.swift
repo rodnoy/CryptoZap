@@ -12,7 +12,7 @@ import Foundation
 struct CryptoZapCLI: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "Encrypt or decrypt files using CryptoZap",
-        discussion: "", version: "1.0.0", subcommands: [Encrypt.self, Decrypt.self],
+        discussion: "", version: "1.0.3", subcommands: [Encrypt.self, Decrypt.self],
         defaultSubcommand: nil,
         helpNames: [.short, .long]
     )
