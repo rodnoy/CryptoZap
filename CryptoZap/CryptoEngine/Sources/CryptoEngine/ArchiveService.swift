@@ -34,25 +34,30 @@ public struct ArchiveService
         let tempZipURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".zip")
         try data.write(to: tempZipURL)
 
-        let archive = try Archive(url: tempZipURL, accessMode: .read)
+        do {
+            let archive = try Archive(url: tempZipURL, accessMode: .read)
 
-        for entry in archive {
-            let outputURL = destination.appendingPathComponent(entry.path)
-            let outputDir = outputURL.deletingLastPathComponent()
-            try FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
+            for entry in archive {
+                let outputURL = destination.appendingPathComponent(entry.path)
+                let outputDir = outputURL.deletingLastPathComponent()
+                try FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
 
-            if FileManager.default.fileExists(atPath: outputURL.path) {
-                if FileManager.default.isDeletableFile(atPath: outputURL.path) {
-                    try FileManager.default.removeItem(at: outputURL)
-                } else {
-                    print("🚫 Нельзя удалить файл: \(outputURL.lastPathComponent)")
-                    continue
+                if FileManager.default.fileExists(atPath: outputURL.path) {
+                    if FileManager.default.isDeletableFile(atPath: outputURL.path) {
+                        try FileManager.default.removeItem(at: outputURL)
+                    } else {
+                        print("🚫 Нельзя удалить файл: \(outputURL.lastPathComponent)")
+                        continue
+                    }
                 }
+
+                _ = try archive.extract(entry, to: outputURL, skipCRC32: true)
             }
 
-            _ = try archive.extract(entry, to: outputURL, skipCRC32: true)
+            try FileManager.default.removeItem(at: tempZipURL)
+        } catch {
+            print("❌ Ошибка при распаковке: \(error.localizedDescription)")
+            throw error
         }
-
-        try FileManager.default.removeItem(at: tempZipURL)
     }
 }

@@ -10,14 +10,26 @@ import Foundation
 
 public enum ResourceBundle {
     public static let bundle: Bundle = {
-        // Поддержка Homebrew — путь к .bundle рядом с бинарём
-        let baseURL = Bundle.main.bundleURL.deletingLastPathComponent()
-        let bundleURL = baseURL.appendingPathComponent("CryptoEngine_CryptoEngine.bundle")
+        let fm = FileManager.default
 
-        guard let bundle = Bundle(url: bundleURL) else {
-            fatalError("⚠️ Could not load resource bundle at \(bundleURL.path)")
+        // Homebrew installation path (include Cellar/cryptozap-cli/<version>)
+        let cellarPath = "/opt/homebrew/Cellar/cryptozap-cli"
+        if let versions = try? fm.contentsOfDirectory(atPath: cellarPath).sorted(by: >) {
+            for version in versions {
+                let bundlePath = "\(cellarPath)/\(version)/CryptoEngine_CryptoEngine.bundle"
+                if fm.fileExists(atPath: bundlePath), let bundle = Bundle(path: bundlePath) {
+                    return bundle
+                }
+            }
         }
 
-        return bundle
+        // local launch: with binary
+        let localPath = Bundle.main.bundleURL.deletingLastPathComponent()
+            .appendingPathComponent("CryptoEngine_CryptoEngine.bundle").path
+        if fm.fileExists(atPath: localPath), let bundle = Bundle(path: localPath) {
+            return bundle
+        }
+
+        fatalError("⚠️ Resource bundle not found in expected paths")
     }()
 }

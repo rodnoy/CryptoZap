@@ -39,11 +39,7 @@ struct CryptoZapCLI: ParsableCommand {
             do {
                 let password = readSecureInput(prompt: String(localized: "CLIPasswordPrompt"))
                 let inputURL = URL(fileURLWithPath: inputPath)
-                var archiveURL = inputURL
-                if FileManager.default.directoryExists(atPath: inputURL.path) {
-                    let tempZip = try ArchiveService.createArchive(from: [inputURL])
-                    archiveURL = tempZip
-                }
+                let archiveURL = try ArchiveService.createArchive(from: [inputURL])
                 let data = try CryptoService.encryptFile(inputURL: archiveURL, password: password)
                 let outputURL: URL
                 if let outPath = outputPath {
@@ -92,10 +88,6 @@ struct CryptoZapCLI: ParsableCommand {
                 let encryptedData = try Data(contentsOf: inputURL)
                 let decrypted = try CryptoService.decryptFile(encryptedData: encryptedData, password: password)
 
-                // Save to temp .zip
-                let tempZipURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("zip")
-                try decrypted.write(to: tempZipURL)
-
                 let destination: URL
                 if let outPath = outputPath {
                     destination = URL(fileURLWithPath: outPath)
@@ -104,7 +96,6 @@ struct CryptoZapCLI: ParsableCommand {
                 }
 
                 try ArchiveService.unzip(data: decrypted, to: destination)
-                try FileManager.default.removeItem(at: tempZipURL)
 
                 print("\u{001B}[0;32m\(String(localized: "CLIDecryptionSuccess")): \(destination.path)\u{001B}[0m")
             } catch {
