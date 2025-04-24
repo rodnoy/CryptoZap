@@ -84,8 +84,9 @@ When installed via `install.sh`, completions are automatically added to your she
 If installed via Homebrew, run this manually:
 
 ```bash
-cryptozap-cli --generate-completion-script zsh > /usr/local/share/zsh/site-functions/_cryptozap-cli
+sudo cryptozap-cli --generate-completion-script zsh | sudo tee /usr/local/share/zsh/site-functions/_cryptozap-cli > /dev/null
 ```
+> Note: Redirection (`>`) happens outside of `sudo`, so we use `tee` to write with elevated permissions.
 
 Restart your terminal and type:
 
