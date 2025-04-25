@@ -25,10 +25,11 @@ jobs:
       - name: 🧪 Build CLI (cryptozap-cli)
         if: matrix.target == 'cli'
         run: |
-          swift build -c release --product cryptozap-cli
+          swift package clean
+          swift build -c release --arch arm64 --arch x86_64 --product cryptozap-cli
           mkdir -p dist-cli
-          cp .build/arm64-apple-macosx/release/cryptozap-cli dist-cli/
-          cp -R .build/arm64-apple-macosx/release/CryptoEngine_CryptoEngine.bundle dist-cli/
+          cp .build/apple/Products/Release/cryptozap-cli dist-cli/
+          cp -R .build/apple/Products/Release/CryptoEngine_CryptoEngine.bundle dist-cli/
           cp cryptozap-cli.1 dist-cli/
           gzip -f dist-cli/cryptozap-cli.1
           tar -czf cryptozap-cli-app.tar.gz -C dist-cli .

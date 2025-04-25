@@ -13,10 +13,13 @@ set -e
 echo "🔢 Enter the version (e.g., 1.0.3):"
 read VERSION
 
-echo "🏗 Building cryptozap-cli..."
-swift build -c release --product cryptozap-cli
+echo "🧹 Cleaning previous build..."
+swift package clean
 
-RELEASE_DIR=".build/arm64-apple-macosx/release"
+echo "🏗 Building cryptozap-cli..."
+swift build -c release --arch arm64 --arch x86_64 --product cryptozap-cli
+
+RELEASE_DIR=".build/apple/Products/Release"
 if [[ ! -f "$RELEASE_DIR/cryptozap-cli" || ! -d "$RELEASE_DIR/CryptoEngine_CryptoEngine.bundle" ]]; then
   echo "❌ Build output not found in $RELEASE_DIR"
   exit 1
