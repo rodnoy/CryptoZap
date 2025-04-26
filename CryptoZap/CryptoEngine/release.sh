@@ -1,11 +1,3 @@
-#
-//  release.sh
-//  CryptoEngine
-//
-//  Created by KIRILL SIMAGIN on 24/04/2025.
-//
-
-
 #!/bin/bash
 
 set -e
