@@ -2,11 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSUIElement</key>
-	<true/>
-	<key>NSExtension</key>
-	<dict>
-		<key>NSExtensionAttributes</key>
+    <key>LSUIElement</key>
+    <true/>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLName</key>
+        <string>CryptoZap URL</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>cryptozap</string>
+        </array>
+      </dict>
+    </array>
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionAttributes</key>
         <dict>
             <key>NSExtensionActivationRule</key>
             <dict>
@@ -16,10 +27,10 @@
               <integer>100</integer>
             </dict>
           </dict>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.FinderSync</string>
-		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).FinderSync</string>
-	</dict>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.FinderSync</string>
+        <key>NSExtensionPrincipalClass</key>
+        <string>$(PRODUCT_MODULE_NAME).FinderSync</string>
+    </dict>
 </dict>
 </plist>

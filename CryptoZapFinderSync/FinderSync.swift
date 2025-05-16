@@ -45,28 +45,22 @@ class FinderSync: FIFinderSync {
         guard let items = FIFinderSyncController.default().selectedItemURLs(),
               !items.isEmpty else { return }
 
-        let itemPaths = items.map { $0.path }
+        let fileURL = items.first!.path
+        let encodedPath = fileURL.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? fileURL
 
-        guard let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.orange.labs.immersive.CryptoZap") else {
-            
-            print("❌ CryptoZap app not found")
+        // Grabbing the scheme from Info.plist (CFBundleURLSchemes)
+        let scheme = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes")
+            .flatMap { $0 as? [[String: Any]] }?
+            .first?["CFBundleURLSchemes"]
+            .flatMap { $0 as? [String] }?
+            .first ?? "cryptozap"
+
+        let urlString = "\(scheme)://\(action)?path=\(encodedPath)"
+        guard let url = URL(string: urlString) else {
+            print("❌ Failed to create URL scheme")
             return
         }
-//        let appURL = URL(fileURLWithPath: "/Applications/CryptoZap.app", isDirectory: true)
-        print("📦 Launching CryptoZap at:", appURL.path)
-        print("🗂️ With arguments:", [action] + itemPaths)
-
-        let configuration = NSWorkspace.OpenConfiguration()
-        configuration.arguments = [action] + itemPaths
-
-        print("🚀 Attempting to launch with configuration:", configuration.arguments ?? [])
-
-        NSWorkspace.shared.openApplication(at: appURL, configuration: configuration, completionHandler: { app, error in
-            if let error = error {
-                print("❌ Error launching CryptoZap: \(error.localizedDescription)")
-            } else {
-                print("🚀 CryptoZap launched successfully")
-            }
-        })
+        print("🌐 Opening CryptoZap via URL scheme:", url.absoluteString)
+        NSWorkspace.shared.open(url)
     }
 }

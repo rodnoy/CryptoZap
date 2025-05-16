@@ -104,6 +104,10 @@ For developers, CryptoZap includes an install script `install.sh` and a release 
 - SHA256 is auto-calculated
 - Archive is `.tar.gz`-ready for GitHub Releases
 
+## Finder Extension
+To enable CryptoZap in Finder:
+1. Open System Settings > Privacy & Security > Extensions > Finder Extensions.
+2. Enable "CryptoZapFinderSync".
 ---
 
 ## License

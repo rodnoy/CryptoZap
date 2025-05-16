@@ -19,7 +19,24 @@ struct CryptoZapApp: App {
             ContentView(openedFileURL: $openedFileURL)
                 .environmentObject(delegate.appState)
                 .onOpenURL { url in
-                    openedFileURL = url
+                    logger.info("🌐 Received URL: \(url.absoluteString, privacy: .public)")
+                    guard url.scheme == "cryptozap" else {
+                        logger.info("❌ Unknown URL scheme")
+                        return
+                    }
+                    guard let action = url.host else {
+                        logger.info("❌ No action (host) in URL")
+                        return
+                    }
+                    // Получаем путь к файлу из query (например, ?path=/Users/...)
+                    if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                       let path = components.queryItems?.first(where: { $0.name == "path" })?.value {
+                        logger.info("✅ URL scheme action: \(action), path: \(path)")
+                        delegate.appState.action = action
+                        delegate.appState.filesToProcess = [URL(fileURLWithPath: path)]
+                    } else {
+                        logger.info("❌ No 'path' parameter in URL")
+                    }
                 }
         }
         .commands {
