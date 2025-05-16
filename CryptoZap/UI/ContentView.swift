@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import os
+private let logger = Logger(subsystem: "com.orange.labs.immersive.CryptoZap", category: "UI")
 import UniformTypeIdentifiers
 import CryptoKit
 import CryptoEngine
 
 struct ContentView: View {
+    @EnvironmentObject var appState: AppState
     @State private var isDragging = false
     @State private var droppedFiles: [URL] = []
     @State private var showPasswordPrompt = false
@@ -55,10 +58,24 @@ struct ContentView: View {
                 decryptAndUnzip(file: encryptedFileToDecrypt!, password: password)
             }
         }
-        .onAppear {
-            if let url = openedFileURL, url.pathExtension == "encrypted" {
-                showDecryptPrompt(for: url)
+        .onReceive(appState.$action.combineLatest(appState.$filesToProcess)) { action, filesToProcess in
+            guard let action = action, !filesToProcess.isEmpty else { return }
+
+            logger.info("📦 Received action via onReceive: \(action, privacy: .public), files: \(String(describing: filesToProcess), privacy: .public)")
+
+            if action == "encrypt" {
+                filesToEncrypt = filesToProcess
+                showPasswordPrompt = true
+                logger.info("🔐 Triggering password prompt via onReceive.")
+            } else if action == "decrypt" {
+                encryptedFileToDecrypt = filesToProcess.first!
+                showDecryptPrompt = true
+                logger.info("🔓 Triggering decrypt prompt via onReceive.")
             }
+
+            // Сброс
+            appState.action = nil
+            appState.filesToProcess = []
         }
         .alert("Error", isPresented: Binding(get: { error != nil }, set: { if !$0 { error = nil } })) {
             Button(String(localized: "OK"), role: .cancel) { }

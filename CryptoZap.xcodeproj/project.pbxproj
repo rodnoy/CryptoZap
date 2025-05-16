@@ -7,14 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9273F692DC618B600BD61A8 /* CryptoZapFinderSync.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9273F612DC618B600BD61A8 /* CryptoZapFinderSync.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E93D7B4D2DAFDA270084D0B7 /* CryptoEngine in Frameworks */ = {isa = PBXBuildFile; productRef = E93D7B4C2DAFDA270084D0B7 /* CryptoEngine */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E9273F672DC618B600BD61A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E99152AD2DA4FDB100BA7D7C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9273F602DC618B600BD61A8;
+			remoteInfo = CryptoZapFinderSync;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E9273F6E2DC618B600BD61A8 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E9273F692DC618B600BD61A8 /* CryptoZapFinderSync.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E9273F612DC618B600BD61A8 /* CryptoZapFinderSync.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CryptoZapFinderSync.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99152B52DA4FDB100BA7D7C /* CryptoZap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoZap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E9273F6D2DC618B600BD61A8 /* Exceptions for "CryptoZapFinderSync" folder in "CryptoZapFinderSync" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E9273F602DC618B600BD61A8 /* CryptoZapFinderSync */;
+		};
 		E99152DD2DA5296C00BA7D7C /* Exceptions for "CryptoZap" folder in "CryptoZap" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -25,6 +58,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		E9273F622DC618B600BD61A8 /* CryptoZapFinderSync */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E9273F6D2DC618B600BD61A8 /* Exceptions for "CryptoZapFinderSync" folder in "CryptoZapFinderSync" target */,
+			);
+			path = CryptoZapFinderSync;
+			sourceTree = "<group>";
+		};
 		E99152B72DA4FDB100BA7D7C /* CryptoZap */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -36,6 +77,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E9273F5E2DC618B600BD61A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E99152B22DA4FDB100BA7D7C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				E99152B72DA4FDB100BA7D7C /* CryptoZap */,
+				E9273F622DC618B600BD61A8 /* CryptoZapFinderSync */,
 				E939B4C42DAFD78F00216B7C /* Frameworks */,
 				E99152B62DA4FDB100BA7D7C /* Products */,
 			);
@@ -67,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				E99152B52DA4FDB100BA7D7C /* CryptoZap.app */,
+				E9273F612DC618B600BD61A8 /* CryptoZapFinderSync.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,6 +124,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E9273F602DC618B600BD61A8 /* CryptoZapFinderSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9273F6A2DC618B600BD61A8 /* Build configuration list for PBXNativeTarget "CryptoZapFinderSync" */;
+			buildPhases = (
+				E9273F5D2DC618B600BD61A8 /* Sources */,
+				E9273F5E2DC618B600BD61A8 /* Frameworks */,
+				E9273F5F2DC618B600BD61A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E9273F622DC618B600BD61A8 /* CryptoZapFinderSync */,
+			);
+			name = CryptoZapFinderSync;
+			packageProductDependencies = (
+			);
+			productName = CryptoZapFinderSync;
+			productReference = E9273F612DC618B600BD61A8 /* CryptoZapFinderSync.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E99152B42DA4FDB100BA7D7C /* CryptoZap */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E99152C12DA4FDB400BA7D7C /* Build configuration list for PBXNativeTarget "CryptoZap" */;
@@ -81,10 +153,12 @@
 				E99152B12DA4FDB100BA7D7C /* Sources */,
 				E99152B22DA4FDB100BA7D7C /* Frameworks */,
 				E99152B32DA4FDB100BA7D7C /* Resources */,
+				E9273F6E2DC618B600BD61A8 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E9273F682DC618B600BD61A8 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				E99152B72DA4FDB100BA7D7C /* CryptoZap */,
@@ -107,6 +181,9 @@
 				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					E9273F602DC618B600BD61A8 = {
+						CreatedOnToolsVersion = 16.3;
+					};
 					E99152B42DA4FDB100BA7D7C = {
 						CreatedOnToolsVersion = 16.3;
 					};
@@ -131,11 +208,19 @@
 			projectRoot = "";
 			targets = (
 				E99152B42DA4FDB100BA7D7C /* CryptoZap */,
+				E9273F602DC618B600BD61A8 /* CryptoZapFinderSync */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E9273F5F2DC618B600BD61A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E99152B32DA4FDB100BA7D7C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -146,6 +231,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E9273F5D2DC618B600BD61A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E99152B12DA4FDB100BA7D7C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -155,7 +247,71 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E9273F682DC618B600BD61A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9273F602DC618B600BD61A8 /* CryptoZapFinderSync */;
+			targetProxy = E9273F672DC618B600BD61A8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		E9273F6B2DC618B600BD61A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CryptoZapFinderSync/CryptoZapFinderSync.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 269J2W3P7L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CryptoZapFinderSync/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CryptoZapFinderSync;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.orange.labs.immersive.CryptoZap.CryptoZapFinderSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E9273F6C2DC618B600BD61A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CryptoZapFinderSync/CryptoZapFinderSync.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 269J2W3P7L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CryptoZapFinderSync/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CryptoZapFinderSync;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.orange.labs.immersive.CryptoZap.CryptoZapFinderSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		E99152BF2DA4FDB400BA7D7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -284,7 +440,7 @@
 				CODE_SIGN_ENTITLEMENTS = CryptoZap/CryptoZap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 269J2W3P7L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -312,7 +468,7 @@
 				CODE_SIGN_ENTITLEMENTS = CryptoZap/CryptoZap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 269J2W3P7L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -335,6 +491,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E9273F6A2DC618B600BD61A8 /* Build configuration list for PBXNativeTarget "CryptoZapFinderSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9273F6B2DC618B600BD61A8 /* Debug */,
+				E9273F6C2DC618B600BD61A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E99152B02DA4FDB100BA7D7C /* Build configuration list for PBXProject "CryptoZap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
