@@ -1,6 +1,0 @@
-"CLIPasswordPrompt" = "Entrez le mot de passe";
-"CLIDecryptionSuccess" = "✅ Fichiers déchiffrés avec succès";
-"CLIEncryptionSuccess" = "✅ Fichier chiffré";
-"CLIHelpInputPath" = "Chemin du fichier source";
-"CLIHelpPassword" = "Mot de passe pour chiffrer/déchiffrer";
-"CLIHelpOutputPath" = "Chemin de sortie pour enregistrer le fichier";

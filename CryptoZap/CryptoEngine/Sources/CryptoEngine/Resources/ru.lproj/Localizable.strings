@@ -1,6 +1,0 @@
-"CLIPasswordPrompt" = "Введите пароль";
-"CLIDecryptionSuccess" = "✅ Файлы успешно расшифрованы";
-"CLIEncryptionSuccess" = "✅ Файл зашифрован";
-"CLIHelpInputPath" = "Путь к исходному файлу";
-"CLIHelpPassword" = "Пароль для шифрования/дешифровки";
-"CLIHelpOutputPath" = "Путь для сохранения выходного файла";

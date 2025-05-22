@@ -1,6 +1,0 @@
-"CLIPasswordPrompt" = "Enter password";
-"CLIDecryptionSuccess" = "✅ Files successfully decrypted";
-"CLIEncryptionSuccess" = "✅ File successfully encrypted";
-"CLIHelpInputPath" = "Path to input file";
-"CLIHelpPassword" = "Password for encryption/decryption";
-"CLIHelpOutputPath" = "Output path for saving the file";

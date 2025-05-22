@@ -1,38 +1,0 @@
-.TH CRYPTOZAP-CLI 1 "April 2025" "CryptoZap CLI Manual"
-.SH NAME
-cryptozap-cli \- a command line tool for encrypting and decrypting files and folders
-.SH SYNOPSIS
-.B cryptozap-cli
-[ICOMMANDR] [IOPTIONSR]
-.SH DESCRIPTION
-CryptoZap CLI is a fast and secure tool for encrypting and decrypting files or directories from the terminal.
-
-.SH COMMANDS
-.TP
-.B encrypt <input-path>
-Encrypt a file or folder
-.TP
-.B decrypt <input-path>
-Decrypt a previously encrypted file
-
-.SH OPTIONS
-.TP
-.B \-\-output, \-o
-Specify output path (file or directory)
-
-.SH EXAMPLES
-.TP
-Encrypt a folder and save to Desktop:
-.B
-cryptozap-cli encrypt ~/Documents/MyFolder --output ~/Desktop
-.TP
-Decrypt an encrypted file:
-.B
-cryptozap-cli decrypt ~/Desktop/Project.encrypted --output ~/Documents
-
-.SH SECURITY
-.TP
-Passwords are requested via secure prompt and never stored.
-
-.SH AUTHOR
-CryptoZap Project — https://github.com/kirillsimagin/CryptoZap
